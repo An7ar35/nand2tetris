@@ -17,4 +17,9 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+    Inc16( in=feedback, out=incremented );
+    Mux16( a=feedback,  b=incremented, sel=inc,   out=imout );   //Increment choice
+    Mux16( a=imout,     b=in,          sel=load,  out=loadout ); //Loader choice
+    Mux16( a=loadout,   b=false,       sel=reset, out=rmout );   //Reset choice
+    Register( in=rmout, load=true, out=feedback, out=out );
 }
